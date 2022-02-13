@@ -20,15 +20,12 @@
 ## 📜 Table of Contents
 
 - [About](#about)
-- [Checklist](#checklist)
 - [Getting Started](#getting_started)
 - [Notes](#notes)
 - [42 São Paulo](#ft_sp)
 - [Resources](#resources)
 
 ## 🧐 About <a name = "about"></a>
-
-## ✅ Checklist <a name = "checklist"></a>
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -53,7 +50,11 @@ The image of a beautiful gradient should open in a new window.
 
 ## 📝 Notes <a name = "notes"></a>
 
-TODO: PRAGMA
+I know you can write the magic bits as a `short` using `# pragma pack(push, 1)`.
+I didn't do it for two reasons:
+
+1. I'm getting the norminette error: `Unrecognized preprocessor statement`
+2. It's clearer this way.
 
 ## 🛸 42 São Paulo <a name = "ft_sp"></a>
 
@@ -71,3 +72,14 @@ that offers a healthy alternative to traditional education:
 It's an amazing school, and I'm grateful for the opportunity.
 
 ## 📚 Resources <a name = "resources"></a>
+
+- https://en.wikipedia.org/wiki/BMP_file_format
+- https://stackoverflow.com/questions/11004868/creating-a-bmp-file-bitmap-in-c
+- https://elcharolin.wordpress.com/2018/11/28/read-and-write-bmp-files-in-c-c/
+- https://engineering.purdue.edu/ece264/17au/hw/HW15
+
+### C Compiler packing
+
+- https://en.wikipedia.org/wiki/Data_structure_alignment
+- https://stackoverflow.com/questions/3285035/when-writing-struct-to-a-file-too-many-bytes-are-written
+- https://stackoverflow.com/questions/3318410/pragma-pack-effect
