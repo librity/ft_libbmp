@@ -6,7 +6,7 @@
 #    By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 16:25:08 by lpaulo-m          #+#    #+#              #
-#    Updated: 2022/02/15 12:35:38 by lpaulo-m         ###   ########.fr        #
+#    Updated: 2022/02/15 12:44:10 by lpaulo-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = ft_libbmp.a
 
 CC = gcc
 CC_FLAGS = -Wall -Wextra -Werror
-CC_DEBUG_FLAGS = -g
+CC_DEBUG_FLAGS = -g -fsanitize=address
 
 SAFE_MAKEDIR = mkdir -p
 ARCHIVE_AND_INDEX = ar -rcs
@@ -43,11 +43,10 @@ initialize:
 
 all: $(NAME)
 
-$(NAME): initialize $(OBJECTS) $(HEADER)
+$(NAME): initialize $(HEADER) $(OBJECTS)
 	$(ARCHIVE_AND_INDEX) $(NAME) $(OBJECTS)
 
 $(OBJECTS_PATH)/%.o: $(SOURCES_PATH)/%.c $(HEADER)
-	$(SAFE_MAKEDIR) $(OBJECTS_PATH)
 	$(CC) $(CC_FLAGS) -I $(INCLUDES_PATH) -o $@ -c $<
 
 clean:
@@ -100,7 +99,8 @@ gitm:
 # PHONY
 ################################################################################
 
-.PHONY: all re clean fclean \
+.PHONY: initialize \
+	all re clean fclean \
 	example example_clean \
 	norm git gitm
 
