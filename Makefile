@@ -6,7 +6,7 @@
 #    By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 16:25:08 by lpaulo-m          #+#    #+#              #
-#    Updated: 2022/02/15 14:28:47 by lpaulo-m         ###   ########.fr        #
+#    Updated: 2022/02/15 14:38:11 by lpaulo-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,6 @@ SOURCES = $(wildcard $(SOURCES_PATH)/*.c)
 
 OBJECTS = $(subst $(SOURCES_PATH)/,$(OBJECTS_PATH)/,$(subst .c,.o,$(SOURCES)))
 
-initialize:
-	$(SAFE_MAKEDIR) $(OBJECTS_PATH)
-
 ################################################################################
 # REQUIRED
 ################################################################################
@@ -57,6 +54,9 @@ fclean: clean
 	$(REMOVE) $(NAME)
 
 re: fclean all
+
+initialize:
+	$(SAFE_MAKEDIR) $(OBJECTS_PATH)
 
 ################################################################################
 # EXAMPLE
@@ -100,8 +100,7 @@ gitm:
 # PHONY
 ################################################################################
 
-.PHONY: initialize \
-	all re clean fclean \
+.PHONY: all re clean fclean initialize \
 	example example_clean \
 	norm git gitm
 
