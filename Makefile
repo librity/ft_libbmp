@@ -6,7 +6,7 @@
 #    By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 16:25:08 by lpaulo-m          #+#    #+#              #
-#    Updated: 2022/02/13 18:56:24 by lpaulo-m         ###   ########.fr        #
+#    Updated: 2022/02/15 12:35:38 by lpaulo-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,12 @@ EXAMPLES_PATH = ./examples
 HEADER_FILE = ft_libbmp.h
 HEADER = $(addprefix $(INCLUDES_PATH)/,$(HEADER_FILE))
 
-SOURCE_FILES = ft_initialize_bitmap.c ft_save_bitmap.c ft_free_bitmap.c \
-	utils.c errors.c
-SOURCES = $(addprefix $(SOURCES_PATH)/,$(SOURCE_FILES))
+SOURCES = $(wildcard $(SOURCES_PATH)/*.c)
 
-OBJECTS = $(addprefix $(OBJECTS_PATH)/,$(subst .c,.o,$(SOURCE_FILES)))
+OBJECTS = $(subst $(SOURCES_PATH)/,$(OBJECTS_PATH)/,$(subst .c,.o,$(SOURCES)))
+
+initialize:
+	$(SAFE_MAKEDIR) $(OBJECTS_PATH)
 
 ################################################################################
 # REQUIRED
@@ -42,8 +43,8 @@ OBJECTS = $(addprefix $(OBJECTS_PATH)/,$(subst .c,.o,$(SOURCE_FILES)))
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS) $(HEADER)
-	$(ARCHIVE_AND_INDEX) $(NAME) $(OBJECTS) 
+$(NAME): initialize $(OBJECTS) $(HEADER)
+	$(ARCHIVE_AND_INDEX) $(NAME) $(OBJECTS)
 
 $(OBJECTS_PATH)/%.o: $(SOURCES_PATH)/%.c $(HEADER)
 	$(SAFE_MAKEDIR) $(OBJECTS_PATH)
