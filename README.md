@@ -11,7 +11,7 @@
 
 </div>
 
-<p align="center"> A terrible implementation of a bitmap library.
+<p align="center"> A a bitmap library integrated with 42's <a href="https://github.com/42Paris/minilibx-linux">minilibx</a>.
   <br>
 </p>
 
