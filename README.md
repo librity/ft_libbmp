@@ -2,6 +2,7 @@
 
 <div align="center">
 
+[![Norminette v3](https://github.com/librity/ft_libbmp/actions/workflows/norminette_v3.yml/badge.svg)](https://github.com/librity/ft_libbmp/actions/workflows/norminette_v3.yml)
 ![42 São Paulo](https://img.shields.io/badge/42-SP-1E2952)
 ![License](https://img.shields.io/github/license/librity/ft_libbmp?color=yellow)
 ![Code size in bytes](https://img.shields.io/github/languages/code-size/librity/ft_libbmp?color=blue)
