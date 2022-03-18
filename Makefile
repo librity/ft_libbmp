@@ -6,7 +6,7 @@
 #    By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 16:25:08 by lpaulo-m          #+#    #+#              #
-#    Updated: 2022/02/22 10:49:02 by lpaulo-m         ###   ########.fr        #
+#    Updated: 2022/03/17 23:13:52 by lpaulo-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,10 @@ EXAMPLES_PATH = ./examples
 HEADER_FILE = ft_libbmp.h
 HEADER = $(addprefix $(INCLUDES_PATH)/,$(HEADER_FILE))
 
-SOURCES = $(wildcard $(SOURCES_PATH)/*.c)
+SOURCES = $(wildcard $(SOURCES_PATH)/**/*.c) $(wildcard $(SOURCES_PATH)/*.c)
 
 OBJECTS = $(subst $(SOURCES_PATH)/,$(OBJECTS_PATH)/,$(subst .c,.o,$(SOURCES)))
+OBJECT_DIRECTORIES = $(sort $(dir $(OBJECTS)))
 
 ################################################################################
 # REQUIRED
@@ -55,9 +56,18 @@ fclean: clean
 
 re: fclean all
 
-initialize: $(OBJECTS_PATH)
+################################################################################
+# INITIALIZE
+################################################################################
 
-$(OBJECTS_PATH):
+initialize: make_dirs
+
+make_dirs: $(OBJECTS_PATH) $(OBJECT_DIRECTORIES)
+
+$(OBJECT_DIRECTORIES):
+	$(SAFE_MAKEDIR) $@
+
+$(BITMAPS_PATH):
 	$(SAFE_MAKEDIR) $@
 
 ################################################################################
