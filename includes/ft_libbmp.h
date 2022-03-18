@@ -6,7 +6,7 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 16:23:35 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/03/17 23:17:27 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/03/17 23:51:04 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,12 +159,16 @@ typedef struct s_mlx_image
 	int		endian;
 }					t_mlx_image;
 
-void				bm_draw_to_mlx_image(t_mlx_image *buffer, int x, int y,
-						int color);
-void				bm_draw_rgb_to_mlx_image(t_mlx_image *buffer, int x, int y,
-						t_rgb color);
-int					bm_get_mlx_image_pixel(t_mlx_image *buffer, int x, int y);
+void				initialize_mlx_image(t_mlx_image *image, void *mlx,
+						int width, int height);
 
-void				bm_save_mlx_image(t_mlx_image *mlx_img, char *filename);
+void				bm_draw_to_mlx_image(t_mlx_image *image, int x, int y,
+						int color);
+void				bm_draw_rgb_to_mlx_image(t_mlx_image *image, int x, int y,
+						t_rgb color);
+
+int					bm_get_mlx_image_pixel(t_mlx_image *image, int x, int y);
+
+void				bm_save_mlx_image(t_mlx_image *image, char *filename);
 
 #endif
