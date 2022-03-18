@@ -6,7 +6,7 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 23:32:27 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/03/18 00:00:10 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/03/18 00:21:25 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	die_if_null(void *ptr)
 		bm_kill(MLX_IMAGE_INIT);
 }
 
-void	initialize_mlx_image(t_mlx_image *image, void *mlx,
+void	bm_initialize_mlx_image(t_mlx_image *image, void *mlx,
 			int width, int height)
 {
 	image->img = mlx_new_image(mlx, width, height);
