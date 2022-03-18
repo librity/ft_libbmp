@@ -6,7 +6,7 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 01:17:24 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/02/13 19:09:33 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/03/18 00:00:39 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static char	*fetch_error_message(t_bitmap_error code)
 		"Error creating file.",
 		"Header didn't initialize properly.",
 		"Unable to allocate required memory.",
+		"Error initializing mlx image.",
 		"Generic bitmap error.",
 	};
 
