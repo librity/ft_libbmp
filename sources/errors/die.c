@@ -1,41 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   die.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 01:17:24 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/03/18 00:00:39 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/03/21 14:17:41 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_libbmp.h>
+#include <internals.h>
+
+static char	*g_error_messages[GENERIC_BITMAP_ERROR] = {
+	"Error creating file.",
+	"Header didn't initialize properly.",
+	"Unable to allocate required memory.",
+	"Error initializing mlx image.",
+	"Generic bitmap error.",
+};
 
 static void	print_error(char *message)
 {
-	write(1, "\033[31;1;4mERROR: ", 17);
-	while (*message)
-		write(1, message++, 1);
-	write(1, "\033[0m", 4);
-	write(1, "\n", 1);
+	putstr("\033[0;31mERROR\n");
+	putstr(message);
+	putstr("\033[0m\n");
 }
 
-static char	*fetch_error_message(t_bitmap_error code)
+void	die(t_errors code)
 {
-	static char	*error_messages[GENERIC_BITMAP_ERROR] = {
-		"Error creating file.",
-		"Header didn't initialize properly.",
-		"Unable to allocate required memory.",
-		"Error initializing mlx image.",
-		"Generic bitmap error.",
-	};
-
-	return (error_messages[code]);
-}
-
-void	bm_kill(t_bitmap_error code)
-{
-	print_error(fetch_error_message(code));
+	print_error(g_error_messages[code]);
 	exit(EXIT_FAILURE);
+}
+
+void	die_if_null(void *ptr, t_errors code)
+{
+	if (ptr == NULL)
+		die(code);
 }

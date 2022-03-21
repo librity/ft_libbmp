@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_bitmap.c                                   :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 01:15:39 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/02/13 19:09:38 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/03/21 13:49:01 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_libbmp.h>
+#include <internals.h>
 
-void	bm_free_bitmap(t_bitmap_image *image)
+void	bm_free(t_bitmap *bitmap)
 {
 	size_t	height;
 	size_t	current_row;
 
-	height = bm_abs(image->header.height);
+	height = abs(bitmap->header.height);
 	current_row = 0;
 	while (current_row < height)
-		free(image->pixels[current_row++]);
-	free(image->pixels);
+		free(bitmap->pixels[current_row++]);
+	free(bitmap->pixels);
+	free(bitmap);
 }

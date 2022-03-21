@@ -6,39 +6,38 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 13:43:41 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/03/17 23:51:37 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/03/21 14:11:21 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_libbmp.h>
+#include <internals.h>
 
-static void	transfer_pixels(t_mlx_image *image, t_bitmap_image *bm_image)
+static void	transfer_pixels(t_mlx_image *image, t_bitmap *bm_image)
 {
-	int				column;
-	int				row;
-	int				color;
-	t_bitmap_pixel	bm_color;
+	int		x;
+	int		y;
+	int		color_int;
+	t_rgb	colot_rgb;
 
-	row = image->height;
-	while (row--)
+	x = image->width;
+	while (x--)
 	{
-		column = image->width;
-		while (column--)
+		y = image->height;
+		while (y--)
 		{
-			color = bm_get_mlx_image_pixel(image, column, row);
-			bm_color = bm_int_to_rgb(color);
-			bm_set_image_pixel(bm_image, bm_color, image->height - row - 1,
-				column);
+			color_int = mlx_image_get_pixel_int(image, y, x);
+			colot_rgb = int_to_rgb(color_int);
+			bm_draw(bm_image, colot_rgb, x, y);
 		}
 	}
 }
 
-void	bm_save_mlx_image(t_mlx_image *image, char *filename)
+void	mlx_image_save_bm(t_mlx_image *image, char *filename)
 {
-	t_bitmap_image	bm_image;
+	t_bitmap	*bitmap;
 
-	bm_initialize_bitmap(&bm_image, image->width, image->height);
-	transfer_pixels(image, &bm_image);
-	bm_save_bitmap(&bm_image, filename);
-	bm_free_bitmap(&bm_image);
+	bitmap = bm_initialize(image->width, image->height);
+	transfer_pixels(image, bitmap);
+	bm_save(bitmap, filename);
+	bm_free(bitmap);
 }

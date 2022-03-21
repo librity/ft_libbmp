@@ -1,34 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors_meta.c                                      :+:      :+:    :+:   */
+/*   int.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 16:44:29 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/03/17 23:04:52 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/03/21 13:18:36 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_libbmp.h>
+#include <internals.h>
 
-t_trgb	bm_int_to_trgb(int color)
+int	int_get_t(int color)
 {
-	t_trgb	trgb;
-
-	trgb.transparency = (unsigned char)(color >> 24);
-	trgb.red = (unsigned char)(color >> 16);
-	trgb.green = (unsigned char)(color >> 8);
-	trgb.blue = (unsigned char)color;
-	return (trgb);
+	return (color & T_MASK);
 }
 
-t_bitmap_pixel	bm_int_to_rgb(int color)
+int	int_get_r(int color)
 {
-	t_bitmap_pixel	rgb;
+	return (color & R_MASK);
+}
 
-	rgb.red = (unsigned char)(color >> 16);
-	rgb.green = (unsigned char)(color >> 8);
-	rgb.blue = (unsigned char)color;
-	return (rgb);
+int	int_get_g(int color)
+{
+	return (color & G_MASK);
+}
+
+int	int_get_b(int color)
+{
+	return (color & B_MASK);
+}
+
+int	int_zero_transparency(int color)
+{
+	int	transparency;
+
+	transparency = color >> 24 << 24;
+	color = color - transparency;
+	return (color);
 }

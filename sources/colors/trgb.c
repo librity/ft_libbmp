@@ -1,42 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color_bits.c                                       :+:      :+:    :+:   */
+/*   trgb.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 16:44:29 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/02/17 20:48:26 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/03/21 13:19:10 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_libbmp.h>
+#include <internals.h>
 
-int	bm_get_t(int color)
+int	trgb_chars_to_int(
+	unsigned char transparency,
+	unsigned char red,
+	unsigned char green,
+	unsigned char blue)
 {
-	return (color & T_MASK);
+	return (transparency << 24 | red << 16 | green << 8 | blue);
 }
 
-int	bm_get_r(int color)
+int	trgb_to_int(t_trgb color)
 {
-	return (color & R_MASK);
+	return (
+		trgb_chars_to_int(
+			color.transparency,
+			color.red,
+			color.green,
+			color.blue));
 }
 
-int	bm_get_g(int color)
+t_trgb	int_to_trgb(int color)
 {
-	return (color & G_MASK);
-}
+	t_trgb	trgb;
 
-int	bm_get_b(int color)
-{
-	return (color & B_MASK);
-}
-
-int	bm_zero_transparency(int color)
-{
-	int	transparency;
-
-	transparency = color >> 24 << 24;
-	color = color - transparency;
-	return (color);
+	trgb.transparency = (unsigned char)(color >> 24);
+	trgb.red = (unsigned char)(color >> 16);
+	trgb.green = (unsigned char)(color >> 8);
+	trgb.blue = (unsigned char)color;
+	return (trgb);
 }

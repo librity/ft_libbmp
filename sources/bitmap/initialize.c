@@ -1,39 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_initialize_bitmap.c                             :+:      :+:    :+:   */
+/*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 01:12:49 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/02/13 19:26:44 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/03/21 14:16:47 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_libbmp.h>
+#include <internals.h>
 
-static void	allocate_pixels(t_bitmap_image *image)
+static void	allocate_pixels(t_bitmap *bitmap)
 {
 	size_t	height;
 	size_t	current_row;
 	size_t	row_size;
 
-	height = bm_abs(image->header.height);
-	image->pixels = malloc(sizeof(t_bitmap_pixel *) * height);
-	if (image->pixels == NULL)
-		bm_kill(BAD_MALLOC);
-	row_size = sizeof(t_bitmap_pixel) * image->header.width;
+	height = abs(bitmap->header.height);
+	bitmap->pixels = malloc(sizeof(t_rgb *) * height);
+	die_if_null(bitmap->pixels, BAD_MALLOC);
+	row_size = sizeof(t_rgb) * bitmap->header.width;
 	current_row = 0;
 	while (current_row < height)
 	{
-		image->pixels[current_row] = malloc(row_size);
-		if (image->pixels == NULL)
-			bm_kill(BAD_MALLOC);
+		bitmap->pixels[current_row] = malloc(row_size);
+		die_if_null(bitmap->pixels[current_row], BAD_MALLOC);
 		current_row++;
 	}
 }
 
-static void	initialize_header(t_bitmap_header *header,
+static void	initialize_header(t_header *header,
 								int width,
 								int height)
 {
@@ -41,9 +39,9 @@ static void	initialize_header(t_bitmap_header *header,
 	size_t	positive_height;
 	size_t	padding;
 
-	padding = bm_calculate_padding(width);
-	adjusted_width = padding + sizeof(t_bitmap_pixel) * width;
-	positive_height = bm_abs(height);
+	padding = width % 4;
+	adjusted_width = padding + sizeof(t_rgb) * width;
+	positive_height = abs(height);
 	header->buffer_size = adjusted_width * positive_height;
 	header->buffer_reserved = 0;
 	header->buffer_offset = 54;
@@ -60,8 +58,13 @@ static void	initialize_header(t_bitmap_header *header,
 	header->important_colors = 0;
 }
 
-void	bm_initialize_bitmap(t_bitmap_image *image, int width, int height)
+void	*bm_initialize(int width, int height)
 {
-	initialize_header(&image->header, width, height);
-	allocate_pixels(image);
+	t_bitmap	*bitmap;
+
+	bitmap = malloc(sizeof(t_bitmap));
+	die_if_null(bitmap, BAD_MALLOC);
+	initialize_header(&(bitmap->header), width, height);
+	allocate_pixels(bitmap);
+	return (bitmap);
 }

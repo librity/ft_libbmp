@@ -6,7 +6,7 @@
 #    By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 16:25:08 by lpaulo-m          #+#    #+#              #
-#    Updated: 2022/03/17 23:13:52 by lpaulo-m         ###   ########.fr        #
+#    Updated: 2022/03/21 14:46:36 by lpaulo-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,8 @@ EXECUTE_EXAMPLE = ./a.out $(IMAGE_NAME)
 OPEN_IMAGE = ffplay
 EXAMPLE_GARBAGE = a.out a.out.dSYM $(IMAGE_NAME)
 
-example: $(NAME)
+example: re
+	$(REMOVE) $(IMAGE_NAME)
 	$(CC) $(CC_DEBUG_FLAGS) -I $(INCLUDES_PATH) $(EXAMPLE_MAIN) $(NAME)
 	$(EXECUTE_EXAMPLE)
 	$(OPEN_IMAGE) $(IMAGE_NAME)

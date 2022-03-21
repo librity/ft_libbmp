@@ -1,76 +1,74 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_save_bitmap.c                                   :+:      :+:    :+:   */
+/*   save.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 01:10:04 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/02/13 19:26:38 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/03/21 14:41:28 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_libbmp.h>
+#include <internals.h>
 
-static size_t	resolve_offset(t_bitmap_image *image, t_write_pixels *control)
+static size_t	resolve_offset(t_bitmap *bitmap, t_writer *ctl)
 {
-	if (image->header.height > 0)
+	if (bitmap->header.height > 0)
 		return (0);
-	return (control->height - 1);
+	return (ctl->height - 1);
 }
 
-static void	initialize_write_pixels(t_bitmap_image *image,
-									t_write_pixels *control)
+static void	initialize_ctl(t_bitmap *bitmap, t_writer *ctl)
 {
-	control->height = bm_abs(image->header.height);
-	control->offset = resolve_offset(image, control);
-	control->row_width = sizeof(t_bitmap_pixel) * image->header.width;
-	control->padding_width = sizeof(unsigned char)
-		* bm_calculate_padding(image->header.width);
-	control->padding[0] = '\0';
-	control->padding[1] = '\0';
-	control->padding[2] = '\0';
+	ctl->height = abs(bitmap->header.height);
+	ctl->offset = resolve_offset(bitmap, ctl);
+	ctl->row_width = sizeof(t_rgb) * bitmap->header.width;
+	ctl->padding_width = sizeof(unsigned char) * (bitmap->header.width % 4);
+	ctl->padding[0] = '\0';
+	ctl->padding[1] = '\0';
+	ctl->padding[2] = '\0';
 }
 
-static void	write_pixels(t_bitmap_image *image, int file_descriptor)
+static void	write_pixels(t_bitmap *bitmap, int fd)
 {
-	t_write_pixels	control;
-	size_t			current_row;
-	int				row_index;
-	t_bitmap_pixel	*row_pixels;
+	t_writer	ctl;
+	size_t		row;
+	int			row_index;
+	t_rgb		*row_pixels;
 
-	initialize_write_pixels(image, &control);
-	current_row = 0;
-	while (current_row < control.height)
+	initialize_ctl(bitmap, &ctl);
+	row = 0;
+	while (row < ctl.height)
 	{
-		row_index = bm_abs(control.offset - current_row);
-		row_pixels = image->pixels[row_index];
-		write(file_descriptor, row_pixels, control.row_width);
-		write(file_descriptor, control.padding, control.padding_width);
-		current_row++;
+		row_index = abs((int)(ctl.offset - row));
+		row_pixels = bitmap->pixels[row_index];
+		write(fd, row_pixels, ctl.row_width);
+		write(fd, ctl.padding, ctl.padding_width);
+		row++;
 	}
 }
 
-static void	write_header(t_bitmap_header *header,
-							int file_descriptor)
+static void	write_header(t_header *header,
+							int fd)
 {
 	if (header == NULL)
 	{
-		close(file_descriptor);
-		bm_kill(HEADER_NOT_INITIALIZED);
+		close(fd);
+		die(HEADER_NOT_INITIALIZED);
 	}
-	write(file_descriptor, BITMAP_MAGIC_BITS, 2);
-	write(file_descriptor, header, sizeof(*header));
+	write(fd, BITMAP_MAGIC_BITS, 2);
+	write(fd, header, sizeof(*header));
 }
 
-void	bm_save_bitmap(t_bitmap_image *image, char *filename)
+void	bm_save(t_bitmap *bitmap, char *filename)
 {
-	int	file_descriptor;
+	int	fd;
 
-	file_descriptor = open(filename, O_CREAT | O_RDWR, 0664);
-	if (file_descriptor < 0)
-		bm_kill(FILE_NOT_OPENED);
-	write_header(&image->header, file_descriptor);
-	write_pixels(image, file_descriptor);
-	close(file_descriptor);
+	fd = open(filename, O_CREAT | O_RDWR, 0664);
+	if (fd < 0)
+		die(FILE_NOT_OPENED);
+	write_header(&(bitmap->header), fd);
+	write_pixels(bitmap, fd);
+	close(fd);
 }
