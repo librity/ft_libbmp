@@ -6,7 +6,7 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 01:12:49 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/03/21 14:16:47 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/03/21 16:04:09 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static void	allocate_pixels(t_bitmap *bitmap)
 
 	height = abs(bitmap->header.height);
 	bitmap->pixels = malloc(sizeof(t_rgb *) * height);
-	die_if_null(bitmap->pixels, BAD_MALLOC);
+	die_if_null(bitmap->pixels, EC_BAD_MALLOC);
 	row_size = sizeof(t_rgb) * bitmap->header.width;
 	current_row = 0;
 	while (current_row < height)
 	{
 		bitmap->pixels[current_row] = malloc(row_size);
-		die_if_null(bitmap->pixels[current_row], BAD_MALLOC);
+		die_if_null(bitmap->pixels[current_row], EC_BAD_MALLOC);
 		current_row++;
 	}
 }
@@ -63,7 +63,7 @@ void	*bm_initialize(int width, int height)
 	t_bitmap	*bitmap;
 
 	bitmap = malloc(sizeof(t_bitmap));
-	die_if_null(bitmap, BAD_MALLOC);
+	die_if_null(bitmap, EC_BAD_MALLOC);
 	initialize_header(&(bitmap->header), width, height);
 	allocate_pixels(bitmap);
 	return (bitmap);

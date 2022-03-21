@@ -6,18 +6,18 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 01:17:24 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/03/21 14:17:41 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/03/21 16:08:54 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <internals.h>
 
-static char	*g_error_messages[GENERIC_BITMAP_ERROR] = {
-	"Error creating file.",
-	"Header didn't initialize properly.",
+static char	*g_error_messages[EC_GENERIC] = {
+	"Couldn't create bitmap file.",
+	"Can't save bitmap with unitialized header.",
 	"Unable to allocate required memory.",
-	"Error initializing mlx image.",
-	"Generic bitmap error.",
+	"Couldn't initialize mlx image.",
+	"Generic ft_libbmp error.",
 };
 
 static void	print_error(char *message)
