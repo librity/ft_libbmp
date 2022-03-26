@@ -6,7 +6,7 @@
 #    By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 16:25:08 by lpaulo-m          #+#    #+#              #
-#    Updated: 2022/03/21 14:46:36 by lpaulo-m         ###   ########.fr        #
+#    Updated: 2022/03/26 15:56:59 by lpaulo-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ HEADER_FILE = ft_libbmp.h
 HEADER = $(addprefix $(INCLUDES_PATH)/,$(HEADER_FILE))
 
 SOURCES = $(wildcard $(SOURCES_PATH)/**/*.c) $(wildcard $(SOURCES_PATH)/*.c)
+# SOURCES = ./sources/bitmap/draw.c ./sources/bitmap/free.c ./sources/bitmap/initialize.c ./sources/bitmap/save.c ./sources/colors/int.c ./sources/colors/rgb.c ./sources/colors/trgb.c ./sources/errors/die.c ./sources/mlx_image/destroy.c ./sources/mlx_image/initialize.c ./sources/mlx_image/pixels.c ./sources/mlx_image/save_bm.c ./sources/utils.c
 
 OBJECTS = $(subst $(SOURCES_PATH)/,$(OBJECTS_PATH)/,$(subst .c,.o,$(SOURCES)))
 OBJECT_DIRECTORIES = $(sort $(dir $(OBJECTS)))
@@ -42,7 +43,7 @@ OBJECT_DIRECTORIES = $(sort $(dir $(OBJECTS)))
 
 all: $(NAME)
 
-$(NAME): initialize $(HEADER) $(OBJECTS)
+$(NAME): $(HEADER) $(OBJECTS)
 	$(ARCHIVE_AND_INDEX) $(NAME) $(OBJECTS)
 
 $(OBJECTS_PATH)/%.o: $(SOURCES_PATH)/%.c
@@ -65,10 +66,10 @@ initialize: make_dirs
 make_dirs: $(OBJECTS_PATH) $(OBJECT_DIRECTORIES)
 
 $(OBJECT_DIRECTORIES):
-	$(SAFE_MAKEDIR) $@
+	$(SAFE_MAKEDIR) $@ && touch "$@/.keep"
 
 $(BITMAPS_PATH):
-	$(SAFE_MAKEDIR) $@
+	$(SAFE_MAKEDIR) $@ && touch "$@/.keep"
 
 ################################################################################
 # EXAMPLE
@@ -109,13 +110,20 @@ gitm:
 	git commit -m $m
 	git push
 
+dump_sources:
+	@echo =========== SOURCES ===========
+	@echo "SOURCES = $(SOURCES)"
+	@echo ===============================
+
 ################################################################################
 # PHONY
 ################################################################################
 
 .PHONY: all re clean fclean initialize \
+\
 	example example_clean \
-	norm git gitm
+\
+	norm git gitm dump_sources
 
 ################################################################################
 # Colors
