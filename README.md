@@ -12,7 +12,7 @@
 
 </div>
 
-<p align="center"> A a bitmap library integrated with 42's <a href="https://github.com/42Paris/minilibx-linux">minilibx</a>.
+<p align="center"> A a bitmap library integrated with 42's <a href="https://github.com/42Paris/minilibx-linux">MinilibX</a>.
   <br>
 </p>
 
@@ -27,6 +27,18 @@
 - [Resources](#resources)
 
 ## 🧐 About <a name = "about"></a>
+
+This is a bitmap library that lets you create, draw to
+and save an int buffer or [MinilibX](https://github.com/42Paris/minilibx-linux)
+image as a `.bmp` file.
+
+It also helps you create switch between different representations of colors
+like `int` and individual red, green, blue and transparency `char`s.
+
+I've used it in the following projects:
+
+- https://github.com/librity/ft_fractol
+- https://github.com/librity/ft_minirt
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
