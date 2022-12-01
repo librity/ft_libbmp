@@ -6,13 +6,17 @@
 #    By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 16:25:08 by lpaulo-m          #+#    #+#              #
-#    Updated: 2022/03/26 15:56:59 by lpaulo-m         ###   ########.fr        #
+#    Updated: 2022/12/01 20:44:41 by lpaulo-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_libbmp.a
 
-CC = gcc
+# CC = cc
+# CC = gcc
+# CC = clang
+CC = clang-12
+
 CC_FLAGS = -Wall -Wextra -Werror
 CC_STRICT = $(CC) $(CC_FLAGS)
 CC_DEBUG_FLAGS = -g -fsanitize=address
