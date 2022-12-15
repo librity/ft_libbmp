@@ -6,7 +6,7 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 16:23:35 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/03/21 14:50:17 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/12/15 18:41:02 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,12 @@ int					rgb_chars_to_int(unsigned char red, unsigned char green,
 
 t_trgb				int_to_trgb(int color);
 t_rgb				int_to_rgb(int color);
+
+t_rgb				rgb_white(void);
+t_rgb				rgb_black(void);
+t_rgb				rgb_red(void);
+t_rgb				rgb_green(void);
+t_rgb				rgb_blue(void);
 
 /******************************************************************************\
  * BITMAP
