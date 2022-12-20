@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   die.c                                              :+:      :+:    :+:   */
+/*   bm_die.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -27,7 +27,7 @@ static void	print_error(char *message)
 	putstr("\033[0m\n");
 }
 
-void	die(t_errors code)
+void	bm_die(t_errors code)
 {
 	print_error(g_error_messages[code]);
 	exit(EXIT_FAILURE);
@@ -36,5 +36,5 @@ void	die(t_errors code)
 void	die_if_null(void *ptr, t_errors code)
 {
 	if (ptr == NULL)
-		die(code);
+		bm_die(code);
 }

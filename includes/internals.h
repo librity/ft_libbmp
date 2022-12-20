@@ -6,7 +6,7 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 16:23:35 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/03/21 16:04:49 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/12/20 18:54:49 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ typedef enum e_errors
 	EC_MLX_IMAGE_INIT,
 	EC_GENERIC
 }					t_errors;
-void				die(t_errors code);
+void				bm_die(t_errors code);
 void				die_if_null(void *ptr, t_errors code);
 
 #endif

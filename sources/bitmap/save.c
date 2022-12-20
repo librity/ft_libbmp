@@ -6,7 +6,7 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 01:10:04 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/03/21 16:04:03 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/12/20 18:54:49 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	write_header(t_header *header,
 	if (header == NULL)
 	{
 		close(fd);
-		die(EC_NO_HEADER);
+		bm_die(EC_NO_HEADER);
 	}
 	write(fd, BITMAP_MAGIC_BITS, 2);
 	write(fd, header, sizeof(*header));
@@ -67,7 +67,7 @@ void	bm_save(t_bitmap *bitmap, char *filename)
 
 	fd = open(filename, O_CREAT | O_RDWR, 0664);
 	if (fd < 0)
-		die(EC_OPEN_BITMAP);
+		bm_die(EC_OPEN_BITMAP);
 	write_header(&(bitmap->header), fd);
 	write_pixels(bitmap, fd);
 	close(fd);
