@@ -6,13 +6,13 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 20:22:42 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/03/21 14:36:43 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/12/29 15:58:55 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <internals.h>
 
-static bool	out_of_bounds(t_bitmap *bitmap, int x, int y)
+static bool	bm_out_of_bounds(t_bitmap *bitmap, int x, int y)
 {
 	if (x < 0)
 		return (true);
@@ -39,7 +39,7 @@ void	bm_draw(t_bitmap *bitmap, t_rgb color, int x, int y)
 {
 	t_rgb	*target_pixel;
 
-	if (out_of_bounds(bitmap, x, y))
+	if (bm_out_of_bounds(bitmap, x, y))
 		return ;
 	target_pixel = &(bitmap->pixels[y][x]);
 	set_pixel(target_pixel, color.red, color.green, color.blue);

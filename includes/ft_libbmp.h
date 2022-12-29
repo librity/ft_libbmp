@@ -6,7 +6,7 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 16:23:35 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/12/15 18:41:02 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2022/12/29 15:52:59 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void				mlx_image_draw_rgb(t_mlx_image *image, t_rgb color,
 						int x, int y);
 
 int					mlx_image_get_pixel_int(t_mlx_image *image, int x, int y);
+t_rgb				mlx_image_get_pixel_rgb(t_mlx_image *image, int x, int y);
 
 void				mlx_image_save_bm(t_mlx_image *image, char *filename);
 
